@@ -26,6 +26,8 @@ button{font-family:inherit;cursor:pointer}
 .t-small{font-family:'Albert Sans',sans-serif;font-weight:400;font-size:14px;line-height:1.45;color:#B8C4D4;margin:0}
 /* Name and role read as one line of text: the role starts right after the name and wraps like heading text. */
 .nr{display:block;line-height:1.4}.nr .t-name{margin-right:2px}
+/* Cards in the team sections: role on its own line under the name. */
+.nr.stack .t-name{display:block;margin:0}.nr.stack .t-small{display:block;margin-top:4px}
 .t-label{font-family:'Albert Sans',sans-serif;font-weight:700;font-size:12px;line-height:1.2;letter-spacing:0.08em;text-transform:uppercase;color:#B8C4D4;margin:0}
 .clip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
@@ -247,7 +249,7 @@ body:has([role="dialog"]) .mock-note{display:none}
           <h2 class="t-h2 rvx {{tm.hCls}}" data-rv="{{tm.hKey}}" style="margin-bottom: 16px;"><span style="color: {{tm.color}};">{{tm.label}}.</span> {{tm.phrase}}</h2>
           <p class="t-lead rvx {{tm.dCls}}" data-rv="{{tm.dKey}}" style="margin-bottom: 48px; max-width: 860px; transition-delay: 100ms;">{{tm.desc}}</p>
 
-          <div style="display: grid; gap: 24px; grid-auto-flow: dense; align-items: stretch; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+          <div style="display: grid; gap: 24px; grid-auto-flow: dense; align-items: stretch; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
             <sc-for list="{{tm.items}}" as="it" hint-placeholder-count="5">
               <div class="rvx {{it.rvCls}}" data-rv="{{it.key}}" data-card="{{it.idx}}" style="{{it.cellStyle}}">
                 <button class="card" onClick="{{it.open}}" aria-label="Open the story of {{it.name}}" style="{{it.cardStyle}}">
@@ -267,7 +269,7 @@ body:has([role="dialog"]) .mock-note{display:none}
                         <span class="t-label" style="{{it.leadStyle}}">Lead</span>
                       </sc-if>
                     </span>
-                    <span class="nr" style="padding: 0 4px 4px;"><span class="t-name nm" data-g="name">{{it.name}}</span> <span class="t-small" data-g="role">{{it.role}}</span></span>
+                    <span class="nr stack" style="padding: 0 4px 4px;"><span class="t-name nm" data-g="name">{{it.name}}</span> <span class="t-small" data-g="role">{{it.role}}</span></span>
                   </span>
                   <sc-if value="{{it.wide}}" hint-placeholder-val="{{false}}">
                     <span style="display: flex; align-items: center; min-width: 0; aspect-ratio: 1 / 1; padding-right: 8px; box-sizing: border-box;">
@@ -287,14 +289,14 @@ body:has([role="dialog"]) .mock-note{display:none}
       <span class="rvg {{al.gCls}}" data-rv="g-al" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 420px at 8% 0%, rgba(163,173,187,0.1), rgba(163,173,187,0) 72%), radial-gradient(ellipse 50% 45% at 100% 60%, rgba(163,173,187,0.05), rgba(163,173,187,0) 70%);"></span>
       <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 0 24px;">
         <h2 class="t-h2 rvx {{al.hCls}}" data-rv="h-al" style="margin-bottom: 48px;"><span style="color: #A3ADBB;">Our Alumni.</span> They helped build our club.</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px;">
           <sc-for list="{{alumni}}" as="a" hint-placeholder-count="4">
             <div class="rvx {{a.rvCls}}" data-rv="{{a.key}}" style="{{a.cellStyle}}">
               <div class="card" style="--ts: rgba(163,173,187,0.12); box-sizing: border-box; background: #0A2D57; border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 12px; height: 100%; display: flex; flex-direction: column; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);">
                 <span style="display: block; width: 100%; aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; margin-bottom: 16px;">
                   <img class="ph" src="{{a.photo}}" alt="{{a.name}}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                 </span>
-                <span class="nr" style="padding: 0 4px 4px;"><span class="t-name">{{a.name}}</span> <span class="t-small">Alumni</span></span>
+                <span class="nr stack" style="padding: 0 4px 4px;"><span class="t-name">{{a.name}}</span> <span class="t-small">Alumni</span></span>
               </div>
             </div>
           </sc-for>
