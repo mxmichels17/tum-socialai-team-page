@@ -24,6 +24,8 @@ button{font-family:inherit;cursor:pointer}
 .t-name{font-family:'League Spartan',sans-serif;font-weight:600;font-size:17px;line-height:1.15;color:#F8FAFC;margin:0}
 .t-body{font-family:'Albert Sans',sans-serif;font-weight:400;font-size:16px;line-height:1.55;color:#F8FAFC;margin:0}
 .t-small{font-family:'Albert Sans',sans-serif;font-weight:400;font-size:14px;line-height:1.45;color:#B8C4D4;margin:0}
+/* Name and role read as one line of text: the role starts right after the name and wraps like heading text. */
+.nr{display:block;line-height:1.4}.nr .t-name{margin-right:2px}
 .t-label{font-family:'Albert Sans',sans-serif;font-weight:700;font-size:12px;line-height:1.2;letter-spacing:0.08em;text-transform:uppercase;color:#B8C4D4;margin:0}
 .clip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
@@ -74,7 +76,7 @@ button{font-family:inherit;cursor:pointer}
 .mate{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 .mate:hover{transform:translateY(-3px)}
 .peek{transition:opacity .3s ease}
-.peek:hover{opacity:.7 !important}
+.peek:not(.pkinR):not(.pkinL):hover{opacity:.7 !important}
 .thumb{transition:transform .2s ease, opacity .2s ease}
 .thumb:hover{transform:translateY(-3px);opacity:1 !important}
 .arrow{transition:background-color .2s ease}
@@ -104,8 +106,8 @@ button{font-family:inherit;cursor:pointer}
 .enter .st3,.enter2 .st3{animation-delay:.15s}
 .enter .st4,.enter2 .st4{animation-delay:.2s}
 .enter .st5,.enter2 .st5{animation-delay:.25s}
-.pkinR{animation:pkinR .8s cubic-bezier(.22,.8,.24,1) both}
-.pkinL{animation:pkinL .8s cubic-bezier(.22,.8,.24,1) both}
+.pkinR{animation:pkinR .5s .45s cubic-bezier(.22,.8,.24,1) both}
+.pkinL{animation:pkinL .5s .45s cubic-bezier(.22,.8,.24,1) both}
 .uiin{animation:uiin .45s .2s cubic-bezier(.2,.8,.2,1) both}
 .uiout{animation:fadeout .3s ease forwards}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -245,7 +247,7 @@ body:has([role="dialog"]) .mock-note{display:none}
           <h2 class="t-h2 rvx {{tm.hCls}}" data-rv="{{tm.hKey}}" style="margin-bottom: 16px;"><span style="color: {{tm.color}};">{{tm.label}}.</span> {{tm.phrase}}</h2>
           <p class="t-lead rvx {{tm.dCls}}" data-rv="{{tm.dKey}}" style="margin-bottom: 48px; max-width: 860px; transition-delay: 100ms;">{{tm.desc}}</p>
 
-          <div style="display: grid; gap: 24px; grid-auto-flow: dense; align-items: stretch; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+          <div style="display: grid; gap: 24px; grid-auto-flow: dense; align-items: stretch; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
             <sc-for list="{{tm.items}}" as="it" hint-placeholder-count="5">
               <div class="rvx {{it.rvCls}}" data-rv="{{it.key}}" data-card="{{it.idx}}" style="{{it.cellStyle}}">
                 <button class="card" onClick="{{it.open}}" aria-label="Open the story of {{it.name}}" style="{{it.cardStyle}}">
@@ -265,10 +267,7 @@ body:has([role="dialog"]) .mock-note{display:none}
                         <span class="t-label" style="{{it.leadStyle}}">Lead</span>
                       </sc-if>
                     </span>
-                    <span style="padding: 0 4px 4px; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px; row-gap: 2px; min-width: 0;">
-                      <span class="t-name clip nm" data-g="name" style="max-width: 100%;">{{it.name}}</span>
-                      <span class="t-small clip" data-g="role" style="max-width: 100%;">{{it.role}}</span>
-                    </span>
+                    <span class="nr" style="padding: 0 4px 4px;"><span class="t-name nm" data-g="name">{{it.name}}</span> <span class="t-small" data-g="role">{{it.role}}</span></span>
                   </span>
                   <sc-if value="{{it.wide}}" hint-placeholder-val="{{false}}">
                     <span style="display: flex; align-items: center; min-width: 0; aspect-ratio: 1 / 1; padding-right: 8px; box-sizing: border-box;">
@@ -288,17 +287,14 @@ body:has([role="dialog"]) .mock-note{display:none}
       <span class="rvg {{al.gCls}}" data-rv="g-al" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 420px at 8% 0%, rgba(163,173,187,0.1), rgba(163,173,187,0) 72%), radial-gradient(ellipse 50% 45% at 100% 60%, rgba(163,173,187,0.05), rgba(163,173,187,0) 70%);"></span>
       <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 0 24px;">
         <h2 class="t-h2 rvx {{al.hCls}}" data-rv="h-al" style="margin-bottom: 48px;"><span style="color: #A3ADBB;">Our Alumni.</span> They helped build our club.</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px;">
           <sc-for list="{{alumni}}" as="a" hint-placeholder-count="4">
             <div class="rvx {{a.rvCls}}" data-rv="{{a.key}}" style="{{a.cellStyle}}">
               <div class="card" style="--ts: rgba(163,173,187,0.12); box-sizing: border-box; background: #0A2D57; border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 12px; height: 100%; display: flex; flex-direction: column; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);">
                 <span style="display: block; width: 100%; aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; margin-bottom: 16px;">
                   <img class="ph" src="{{a.photo}}" alt="{{a.name}}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                 </span>
-                <span style="padding: 0 4px 4px; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px; row-gap: 2px; min-width: 0;">
-                  <span class="t-name clip" style="max-width: 100%;">{{a.name}}</span>
-                  <span class="t-small">Alumni</span>
-                </span>
+                <span class="nr" style="padding: 0 4px 4px;"><span class="t-name">{{a.name}}</span> <span class="t-small">Alumni</span></span>
               </div>
             </div>
           </sc-for>
@@ -336,19 +332,13 @@ body:has([role="dialog"]) .mock-note{display:none}
         <div style="position: absolute; top: 24px; bottom: 104px; left: max(20px, calc(50% - 600px)); display: flex; align-items: center; pointer-events: none;">
           <button class="peek {{pk.prevCls}}" data-peek="prev" onClick="{{goPrev}}" aria-label="Previous: {{prev.name}}" style="{{pk.prevStyle}}">
             <img data-g="img" src="{{prev.photo}}" alt="" style="display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px;">
-            <span style="display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px; row-gap: 2px; padding: 12px 4px 4px; min-width: 0;">
-              <span class="t-name clip" data-g="name" style="max-width: 100%;">{{prev.name}}</span>
-              <span class="t-small clip" data-g="role" style="max-width: 100%;">{{prev.role}}</span>
-            </span>
+            <span class="nr" style="padding: 12px 4px 4px;"><span class="t-name" data-g="name">{{prev.name}}</span> <span class="t-small" data-g="role">{{prev.role}}</span></span>
           </button>
         </div>
         <div style="position: absolute; top: 24px; bottom: 104px; right: max(20px, calc(50% - 600px)); display: flex; align-items: center; pointer-events: none;">
           <button class="peek {{pk.nextCls}}" data-peek="next" onClick="{{goNext}}" aria-label="Next: {{next.name}}" style="{{pk.nextStyle}}">
             <img data-g="img" src="{{next.photo}}" alt="" style="display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px;">
-            <span style="display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px; row-gap: 2px; padding: 12px 4px 4px; min-width: 0;">
-              <span class="t-name clip" data-g="name" style="max-width: 100%;">{{next.name}}</span>
-              <span class="t-small clip" data-g="role" style="max-width: 100%;">{{next.role}}</span>
-            </span>
+            <span class="nr" style="padding: 12px 4px 4px;"><span class="t-name" data-g="name">{{next.name}}</span> <span class="t-small" data-g="role">{{next.role}}</span></span>
           </button>
         </div>
       </div>
@@ -375,7 +365,7 @@ body:has([role="dialog"]) .mock-note{display:none}
                 <a class="icb" href="#hero" aria-label="GitHub of {{cur.name}}" style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F8FAFC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a>
               </div>
             </div>
-            <div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 14px; row-gap: 4px; min-width: 0;">
+            <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-width: 0;">
               <h3 class="t-h3 clip" data-g="name" style="{{hide.name}} max-width: 100%;">{{cur.name}}</h3>
               <p class="t-body" style="color: #B8C4D4; white-space: nowrap;"><span data-g="role" style="{{hide.role}}">{{cur.role}}</span><span class="st st0"> · <span style="color: {{cur.color}}; font-weight: 600;">{{cur.teamLabel}}</span></span></p>
             </div>
@@ -608,8 +598,10 @@ class Component extends DCLogic {
       if (!el0) return;
       // A card photo zooms on hover inside a clipping frame: measure the frame, which is what the eye sees.
       const el = el0.classList.contains('ph') ? el0.parentElement : el0;
+      const rs = el.getClientRects();
       const r = el.getBoundingClientRect();
       if (!r.width || !r.height) return;
+      if (rs.length > 1) return; // wrapped over two lines: it fades instead of flying
       const cs = getComputedStyle(el);
       out[k] = { x: r.left, y: r.top, w: r.width, h: r.height, fs: parseFloat(cs.fontSize) || 16, lh: cs.lineHeight, c: cs.color, rad: parseFloat(cs.borderTopLeftRadius) || 0 };
     });
@@ -997,7 +989,7 @@ class Component extends DCLogic {
           ...p, key, rvCls: C(key) + (s.flight && (s.flight.kind === 'close' || s.flight.kind === 'open') && s.open === p.idx ? ' gone' : ''), wide,
           innerStyle: wide ? 'display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;' : 'display:block;',
           cellStyle: (wide ? 'grid-column:span 2;' : '') + 'transition-delay:' + D(key) + 'ms;',
-          cardStyle: '--ts:rgba(' + p.rgb + ',' + (t.shadowA * 0.8).toFixed(3) + ');display:block;width:100%;height:100%;background:#0A2D57;border:1px solid rgba(255,255,255,0.05);border-radius:24px;padding:12px;text-align:left;color:#F8FAFC;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);box-sizing:border-box;'
+          cardStyle: '--ts:rgba(' + p.rgb + ',' + (t.shadowA * 0.8).toFixed(3) + ');display:flex;flex-direction:column;justify-content:flex-start;width:100%;height:100%;background:#0A2D57;border:1px solid rgba(255,255,255,0.05);border-radius:24px;padding:12px;text-align:left;color:#F8FAFC;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);box-sizing:border-box;'
         };
       });
       return {
@@ -1050,12 +1042,22 @@ class Component extends DCLogic {
 
     // Panel boxes: each one morphs in a straight line from its start rect to its end rect.
     const btr = 'transition:left ' + DUR + 's ' + ease + ',top ' + DUR + 's ' + ease + ',width ' + DUR + 's ' + ease + ',height ' + DUR + 's ' + ease + ',border-radius ' + DUR + 's ' + ease + ',opacity ' + DUR + 's ease;';
+    // Everything that flies sits at its end rect and moves with a transform. Transforms run on the compositor, so photo, text and box stay in sync.
+    const flyRect = (A, B, fly, extraT) => {
+      const E = B || A;
+      const sx = A.w / E.w, sy = A.h / E.h;
+      const tf = 'translate(' + (A.x - E.x).toFixed(1) + 'px,' + (A.y - E.y).toFixed(1) + 'px) scale(' + sx.toFixed(4) + ',' + sy.toFixed(4) + ')';
+      const rad = fly ? (E.rad || 0) + 'px' : ((A.rad || 0) / sx).toFixed(1) + 'px / ' + ((A.rad || 0) / sy).toFixed(1) + 'px';
+      return 'position:fixed;pointer-events:none;margin:0;box-sizing:border-box;transform-origin:0 0;will-change:transform;left:' + E.x + 'px;top:' + E.y + 'px;width:' + E.w + 'px;height:' + E.h + 'px;border-radius:' + rad + ';transform:' + (fly ? 'none' : tf) + ';' +
+        (fly ? 'transition:transform ' + DUR + 's ' + ease + ',border-radius ' + DUR + 's ' + ease + ',' + extraT + ';' : 'transition:none;');
+    };
     const boxes = ((f && f.boxes) || []).map((b) => {
+      if (!b.from) return null;
       const fly = f.phase === 'fly';
-      const r = fly ? b.to : b.from;
-      if (!r) return null;
+      const to = b.to;
+      const op = fly && to ? (to.op !== undefined ? to.op : 1) : (b.from.op !== undefined ? b.from.op : 1);
       const opT = b.opT === 'early' ? 'opacity ' + (DUR * 0.3) + 's ease' : (b.opT === 'late' ? 'opacity ' + (DUR * 0.4) + 's ease ' + (DUR * 0.6) + 's' : 'opacity ' + DUR + 's ease');
-      return { style: 'position:fixed;z-index:45;pointer-events:none;margin:0;background:#0A2D57;border:1px solid rgba(255,255,255,0.1);box-sizing:border-box;box-shadow:0 30px 60px -24px rgba(0,0,0,0.5);left:' + r.x + 'px;top:' + r.y + 'px;width:' + r.w + 'px;height:' + r.h + 'px;border-radius:' + (r.rad || 0) + 'px;opacity:' + (r.op !== undefined ? r.op : 1) + ';' + (fly ? btr.replace('opacity ' + DUR + 's ease', opT) : 'transition:none;') };
+      return { style: flyRect(b.from, to, fly, opT) + 'z-index:45;background:#0A2D57;border:1px solid rgba(255,255,255,0.1);box-shadow:0 30px 60px -24px rgba(0,0,0,0.5);opacity:' + op + ';' };
     }).filter(Boolean);
 
     const peekBase = 'pointer-events:auto;width:180px;opacity:.35;background:#0A2D57;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:10px;color:#F8FAFC;text-align:left;';
@@ -1080,6 +1082,19 @@ class Component extends DCLogic {
         return { r, op };
       };
       const im = pick('img'), nm = pick('name'), rl = pick('role');
+      const txt = (k, font) => {
+        const a = g.from && g.from[k];
+        if (!a) return '';
+        const b = g.to && g.to[k];
+        const end = b || a;
+        const sc = (a.fs || 16) / (end.fs || 16);
+        const tf = 'translate(' + (a.x - end.x).toFixed(1) + 'px,' + (a.y - end.y).toFixed(1) + 'px) scale(' + sc.toFixed(4) + ')';
+        const op = fly ? (b ? (g.to.op !== undefined ? g.to.op : 1) : 0) : (g.from.op !== undefined ? g.from.op : 1);
+        return 'position:fixed;z-index:60;pointer-events:none;margin:0;white-space:nowrap;transform-origin:0 0;will-change:transform;' + font +
+          'left:' + end.x + 'px;top:' + end.y + 'px;font-size:' + end.fs + 'px;line-height:' + end.h + 'px;height:' + end.h + 'px;' +
+          'transform:' + (fly ? 'none' : tf) + ';color:' + (fly ? end.c : a.c) + ';opacity:' + op + ';' +
+          (fly ? 'transition:transform ' + DUR + 's ' + ease + ',color ' + DUR + 's ease,opacity ' + DUR + 's ease;' : 'transition:none;');
+      };
       // When the role changes rows (under the name vs. behind it), hide it while it passes the name.
       const wr = (o) => (o && o.name && o.role) ? (o.role.y > o.name.y + o.name.h * 0.6) : null;
       const rfade = fly && wr(g.from) !== null && wr(g.to) !== null && wr(g.from) !== wr(g.to);
@@ -1087,9 +1102,9 @@ class Component extends DCLogic {
       return {
         src: g.src, name: g.name, role: g.role,
         hasImg: !!im, hasName: !!nm, hasRole: !!rl,
-        imgStyle: im ? base + 'object-fit:cover;left:' + im.r.x + 'px;top:' + im.r.y + 'px;width:' + im.r.w + 'px;height:' + im.r.h + 'px;border-radius:' + im.r.rad + 'px;opacity:' + im.op + ';' : '',
-        nameStyle: nm ? base + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:\'League Spartan\',sans-serif;font-weight:600;line-height:' + nm.r.h + 'px;height:' + nm.r.h + 'px;left:' + nm.r.x + 'px;top:' + nm.r.y + 'px;width:' + nm.r.w + 'px;font-size:' + nm.r.fs + 'px;color:' + nm.r.c + ';opacity:' + nm.op + ';' : '',
-        roleStyle: rl ? base + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:\'Albert Sans\',sans-serif;font-weight:400;line-height:' + rl.r.h + 'px;height:' + rl.r.h + 'px;left:' + rl.r.x + 'px;top:' + rl.r.y + 'px;width:' + rl.r.w + 'px;font-size:' + rl.r.fs + 'px;color:' + rl.r.c + ';opacity:' + rl.op + ';' + (rfade ? 'animation:rolefade ' + DUR + 's linear;' : '') : ''
+        imgStyle: im ? flyRect(g.from.img, g.to && g.to.img, fly, 'opacity ' + DUR + 's ease') + 'z-index:60;object-fit:cover;opacity:' + im.op + ';' : '',
+        nameStyle: txt('name', "font-family:'League Spartan',sans-serif;font-weight:600;"),
+        roleStyle: txt('role', "font-family:'Albert Sans',sans-serif;font-weight:400;") + (rfade ? 'animation:rolefade ' + DUR + 's linear;' : '')
       };
     });
 
